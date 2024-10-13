@@ -8,7 +8,7 @@ concatenated string
 """
 
 
-def concat(str1: str, str2: str):
+def concat(str1: str, str2: str) -> str:
     """Combines two strings together/
     Concatinates two strings
     """
