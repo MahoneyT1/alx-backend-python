@@ -8,5 +8,7 @@ import math
 
 
 def floor(n: float) -> int:
+    """Using math.floor to round the n down to minimum
+    """
     result = math.floor(n)
     return result
