@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+""" Typing and using Sequence ad list to perameterize"""
 
 from typing import List, Iterable, Sequence, Tuple
 
