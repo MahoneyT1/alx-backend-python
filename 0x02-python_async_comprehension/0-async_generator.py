@@ -11,7 +11,7 @@ import random
 from typing import Iterator
 
 
-async def async_generator():
+async def async_generator() Iterator[float]:
     """
     then yield a random number between 0 and 10. Use the random module
     """
