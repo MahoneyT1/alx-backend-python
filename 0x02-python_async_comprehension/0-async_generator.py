@@ -8,10 +8,10 @@ then yield a random number between 0 and 10. Use the random module.
 """
 import asyncio
 import random
-from typing import Iterator
+from typing import AsyncGenerator
 
 
-async def async_generator() Iterator[float]:
+async def async_generator() -> AsyncGenerator[float]:
     """
     then yield a random number between 0 and 10. Use the random module
     """
