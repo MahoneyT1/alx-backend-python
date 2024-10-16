@@ -9,11 +9,11 @@ async_generator, then return the 10 random numbers.
 
 import asyncio
 import random
-from typing import Generator
+from typing import List
 async_generator = __import__('0-async_generator').async_generator
 
 
-async def async_comprehension() -> Generator[float, float, None]:
+async def async_comprehension() -> List[float]:
     """A co-routine function that returns a generated number"""
     random_num_gen = [ran_num async for ran_num in async_generator()]
     return random_num_gen
