@@ -12,7 +12,7 @@ from typing import Generator, List
 
 
 
-async def async_generator() -> Generator[None]:
+async def async_generator() -> Generator[float, None, None]:
     """
     then yield a random number between 0 and 10. Use the random module
     """
