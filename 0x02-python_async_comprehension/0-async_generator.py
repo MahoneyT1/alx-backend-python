@@ -11,11 +11,11 @@ import random
 from typing import AsyncGenerator
 
 
-async def async_generator():
+async def async_generator() -> AsyncGenerator[float, None]:
     """
     then yield a random number between 0 and 10. Use the random module
     """
-    for i in range(0, 10):
+    for _ in range(0, 10):
         await asyncio.sleep(1)
         yield random.uniform(1, 10)
 
