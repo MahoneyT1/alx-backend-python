@@ -41,3 +41,14 @@ class TestAccessNestedMap(unittest.TestCase):
         """check if it matches the expected answer"""
         self.assertEqual(access_nested_map(input['nested_map'],
                                            input['path']), expected)
+        
+
+    @parameterized.expand([
+        ({"nested_map": {}, "path": ("a",)}, KeyError),
+        ({"nested_map": {"a": 1}, "path": ("a", "b")}, KeyError)
+    ])
+    def test_access_nested_map_exception(self, input, expected):
+        """test if it raises an error when the wrong key is passed"""
+        with self.assertRaises(KeyError) as ex:
+            access_nested_map(input["nested_map"], input["path"])
+            self.assertEqual(ex.exception, expected)
