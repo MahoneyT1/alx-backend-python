@@ -77,7 +77,11 @@ class TestGetJson(unittest.TestCase):
 
 
 class TestMemoize(unittest.TestCase):
-    """"""
+    """Read about memoization and familiarize yourself with the
+    utils.memoize decorator. Implement the TestMemoize
+    (unittest.TestCase) class with a test_memoize method.
+    Inside test_memoize, define following class
+    """
 
     def test_memoize(self):
         """Testing if wrap decorator memoize works"""
