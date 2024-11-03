@@ -31,6 +31,7 @@ import requests
 access_nested_map = __import__("utils").access_nested_map
 TEST_PAYLOAD = __import__("fixtures").TEST_PAYLOAD
 get_json = __import__("utils").get_json
+memoize = __import__("utils").memoize
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -73,3 +74,31 @@ class TestGetJson(unittest.TestCase):
         result = get_json(test_url)
         mock_get.assert_called_once_with(test_url)
         self.assertEqual(result, test_payload)
+
+
+class TestMemoize(unittest.TestCase):
+    """"""
+
+    def test_memoize(self):
+        """Testing if wrap decorator memoize works"""
+        class TestClass:
+            """Testing object"""
+            def a_method(self):
+                return 42
+
+            @memoize
+            def a_property(self):
+                """A method that calls a_property"""
+                return self.a_method()
+
+        with mock.patch.object(TestClass, 'a_method') as mock_method:
+            mock_method.return_value = 42
+
+            test_class = TestClass()
+
+            first = test_class.a_property
+            second = test_class.a_property
+
+            mock_method.assert_called_once()
+            self.assertEqual(first, 42)
+            self.assertEqual(second, 42)
