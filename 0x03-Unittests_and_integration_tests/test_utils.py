@@ -24,9 +24,13 @@ The body of the test method should not be longer than 2 lines.
 """
 from unittest.mock import Mock
 import unittest
+from unittest import mock
 from parameterized import parameterized
+import requests
 
 access_nested_map = __import__("utils").access_nested_map
+TEST_PAYLOAD = __import__("fixtures").TEST_PAYLOAD
+get_json = __import__("utils").get_json
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -41,7 +45,6 @@ class TestAccessNestedMap(unittest.TestCase):
         """check if it matches the expected answer"""
         self.assertEqual(access_nested_map(input['nested_map'],
                                            input['path']), expected)
-        
 
     @parameterized.expand([
         ({"nested_map": {}, "path": ("a",)}, KeyError),
@@ -52,3 +55,23 @@ class TestAccessNestedMap(unittest.TestCase):
         with self.assertRaises(KeyError) as ex:
             access_nested_map(input["nested_map"], input["path"])
             self.assertEqual(ex.exception, expected)
+
+
+class TestGetJson(unittest.TestCase):
+    """Http request Mock test"""
+
+    @parameterized.expand([
+        ({"test_url": "http://example.com",
+          "test_payload": {"payload": True}}),
+        ({"test_url": "http://holberton.io",
+          "test_payload": {"payload": False}})
+    ])
+    @mock.patch("requests.get")
+    def test_get_json(self, test_url, test_payload, mock_get):
+        """Test to see if the get request is actually pulling
+        / getting the required data
+        """
+        mock_get.return_value.json.return_value = test_payload
+        result = get_json(test_url)
+        mock_get.assert_called_once_with(test_url)
+        self.assertEqual(result, test_payload)
