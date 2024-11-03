@@ -59,17 +59,14 @@ class TestAccessNestedMap(unittest.TestCase):
 
 class TestGetJson(unittest.TestCase):
     """Http request Mock test"""
-
+    
     @parameterized.expand([
-        ({"test_url": "http://example.com",
-          "test_payload": {"payload": True}}),
-        ({"test_url": "http://holberton.io",
-          "test_payload": {"payload": False}})
+        ('http://example.com', {'payload': True}),
+        ('http://holberton.io', {'payload': False})
     ])
-    @mock.patch("requests.get")
+    @mock.patch('requests.get')
     def test_get_json(self, test_url, test_payload, mock_get):
-        """Test to see if the get request is actually pulling
-        / getting the required data
+        """ Test the get_json function returns the expected result.
         """
         mock_get.return_value.json.return_value = test_payload
         result = get_json(test_url)
