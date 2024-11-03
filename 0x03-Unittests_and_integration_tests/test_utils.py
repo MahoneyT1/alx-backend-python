@@ -96,6 +96,7 @@ class TestMemoize(unittest.TestCase):
                 return self.a_method()
 
         with mock.patch.object(TestClass, 'a_method') as mock_method:
+            """ using patch as a context manager"""
             mock_method.return_value = 42
 
             test_class = TestClass()
