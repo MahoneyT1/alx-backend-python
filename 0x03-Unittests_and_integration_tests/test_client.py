@@ -59,6 +59,6 @@ class TestGithubOrgClient(unittest.TestCase):
             url = 'https://api.github.com/orgs/google/repos'
             get_github_attrr.return_value = url
 
-            instance_of_GithClient = GithubOrgClient(
-                "google")._public_repos_url
-            self.assertEqual(instance_of_GithClient, url)
+            instance_of_GithClient = GithubOrgClient("google")
+            result = instance_of_GithClient._public_repos_url
+            self.assertEqual(result, url)
