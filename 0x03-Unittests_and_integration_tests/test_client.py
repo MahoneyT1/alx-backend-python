@@ -18,7 +18,7 @@ Of course, no external HTTP calls should be made.
 
 from client import GithubOrgClient
 from parameterized import parameterized
-from unittest.mock import patch
+from unittest.mock import patch, PropertyMock
 import unittest
 
 
@@ -41,3 +41,24 @@ class TestGithubOrgClient(unittest.TestCase):
 
         self.assertEqual(result, expected)
         mock_instance.assert_called_once()
+
+    def test_public_repos_url(self):
+        """ memoize turns methods into properties. Read up on how
+        to mock a property (see resource).
+
+        Implement the test_public_repos_url method to unit-test
+        GithubOrgClient._public_repos_url. Use patch as a context
+        manager to patch GithubOrgClient.org and make it return a
+        known payload. Test that the result of _public_repos_url
+        is the expected one based on the mocked payload.
+        """
+
+        with patch.object(GithubOrgClient, '_public_repos_url',
+                          new_callable=PropertyMock)\
+                as get_github_attrr:
+            url = 'https://api.github.com/orgs/google/repos'
+            get_github_attrr.return_value = url
+
+            instance_of_GithClient = GithubOrgClient(
+                "google")._public_repos_url
+            self.assertEqual(instance_of_GithClient, url)
