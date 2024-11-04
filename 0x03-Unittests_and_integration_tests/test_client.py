@@ -16,7 +16,7 @@ abc
 Of course, no external HTTP calls should be made.
 """
 
-from client import GithubOrgClient
+from client import GithubOrgClient, get_json
 from parameterized import parameterized
 from unittest.mock import patch, PropertyMock
 import unittest
@@ -76,12 +76,21 @@ class TestGithubOrgClient(unittest.TestCase):
         was called once.
         """
 
+        with patch("test_client.get_json") as method_json:
+            method_json.return_value =\
+            "https://api.github.com/orgs/google/repos"
+
+            url = "https://api.github.com/orgs/google/repos"
+            result = get_json(url)
+            self.assertEqual(result, url)
+            method_json.assert_called_once()
+
         with patch.object(GithubOrgClient, "public_repos") as method_get_json:
             result = GithubOrgClient("google")
 
             method_get_json.return_value = result._public_repos_url
-            url = "https://api.github.com/orgs/google/repos"
-            ans = result.public_repos()
+            url_to_verify = "https://api.github.com/orgs/google/repos"
+            call_public_repos = result.public_repos()
 
-            self.assertEqual(ans, url)
+            self.assertEqual(call_public_repos, url_to_verify)
             method_get_json.assert_called_once()
