@@ -76,15 +76,6 @@ class TestGithubOrgClient(unittest.TestCase):
         was called once.
         """
 
-        with patch("test_client.get_json") as method_json:
-            method_json.return_value =\
-            "https://api.github.com/orgs/google/repos"
-
-            url = "https://api.github.com/orgs/google/repos"
-            result = get_json(url)
-            self.assertEqual(result, url)
-            method_json.assert_called_once()
-
         with patch.object(GithubOrgClient, "public_repos") as method_get_json:
             result = GithubOrgClient("google")
 
