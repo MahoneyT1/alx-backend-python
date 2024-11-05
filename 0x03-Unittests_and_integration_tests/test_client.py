@@ -88,7 +88,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @parameterized.expand([
         ({"repo": {"license": {"key": "my_license"}},
-          "license_key": "my_license"}, False),
+          "license_key": "my_license"}, True),
         ({"repo": {"license": {"key": "other_license"}},
           "license_key": "my_license"}, False)
     ])
@@ -101,7 +101,16 @@ class TestGithubOrgClient(unittest.TestCase):
         client = GithubOrgClient("google")
 
         # verify if args has license
-        ans = client.has_license(repo_key['repo'], repo_key['repo'])
+        ans = client.has_license(repo_key['repo'], repo_key['license_key'])
 
         # assert that ans returns false
         self.assertEqual(ans, expected)
+
+
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """"""
+    def setUpClass(self):
+        pass
+
+    def tearDownClass(self):
+        pass
